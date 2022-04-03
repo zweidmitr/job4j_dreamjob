@@ -21,9 +21,17 @@ public class PostStore {
         return posts.values();
     }
 
-    public void add(Post post) {
+    public Post findById(int id) {
+        return posts.get(id);
+    }
+
+    public void create(Post post) {
         int newId = id.incrementAndGet();
         post.setId(newId);
         posts.putIfAbsent(newId, post);
+    }
+
+    public void update(Post post) {
+        posts.replace(post.getId(),post);
     }
 }
