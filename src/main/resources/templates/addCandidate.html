@@ -30,29 +30,29 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-item nav-link" href="#">Главная</a>
+                <a class="nav-item nav-link" th:href="@{/index}">Главная</a>
                 <a class="nav-item nav-link" th:href="@{/posts}">Вакансии</a>
-                <a class="nav-item nav-link" th:href="@{/cadidates}">Кандидаты</a>
+                <a class="nav-item nav-link" th:href="@{/candidates}">Кандидаты</a>
                 <a class="nav-item nav-link" th:href="@{/addPost}">Добавить вакансию</a>
-                <a class="nav-item nav-link active" th:href="@{/addCandidate}">Добавить кандидата</a>
+                <a class="nav-item nav-link active" href="#">Добавить кандидата<span
+                        class="sr-only">(current)</span></a>
             </div>
         </div>
     </nav>
     <div class="row pt-3">
         <div class="card" style="width: 100%">
             <div class="card-header">
-                Редактирование данных кандидата.
+                Новый кандидат.
             </div>
             <div class="card-body">
-                <form th:action="@{/updateCandidate}" method="POST" th:object="${candidate}">
-                    <input type="hidden" name="id" th:field="*{id}"/>
+                <form th:action="@{/createCandidate}" method="POST">
+                    <input type="hidden" name="id" value="0"/>
                     <div class="form-group">
-                        <label for="name">Имя кандидата
-                            <input type="text" class="form-control" name="name" id="name" th:field="*{name}">
+                        <label for="name">Имя
+                            <input type="text" class="form-control" name="name" id="name">
                         </label>
-                        <label for="name">Описание кандидата
-                            <input type="text" class="form-control" name="description" id="description"
-                                   th:field="*{description}">
+                        <label for="name">Описание
+                            <input type="text" class="form-control" name="description" id="description">
                         </label>
                     </div>
                     <button type="submit" class="btn btn-primary">Сохранить</button>
