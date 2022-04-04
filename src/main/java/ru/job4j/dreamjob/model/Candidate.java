@@ -7,14 +7,14 @@ import java.util.Objects;
 public class Candidate {
     private int id;
     private String name;
-    private String desc;
+    private String description;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
     private final String created = LocalDateTime.now().format(formatter);
 
-    public Candidate(int id, String name, String desc) {
+    public Candidate(int id, String name, String description) {
         this.id = id;
         this.name = name;
-        this.desc = desc;
+        this.description = description;
     }
 
     public int getId() {
@@ -33,12 +33,12 @@ public class Candidate {
         this.name = name;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getCreated() {
@@ -50,11 +50,11 @@ public class Candidate {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Candidate candidate = (Candidate) o;
-        return id == candidate.id && Objects.equals(name, candidate.name) && Objects.equals(desc, candidate.desc) && Objects.equals(formatter, candidate.formatter) && Objects.equals(created, candidate.created);
+        return id == candidate.id && Objects.equals(name, candidate.name) && Objects.equals(description, candidate.description) && Objects.equals(formatter, candidate.formatter) && Objects.equals(created, candidate.created);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, desc, formatter, created);
+        return Objects.hash(id, name, description, formatter, created);
     }
 }
