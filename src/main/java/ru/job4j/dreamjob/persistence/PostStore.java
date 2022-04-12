@@ -1,4 +1,4 @@
-package ru.job4j.dreamjob.store;
+package ru.job4j.dreamjob.persistence;
 
 import ru.job4j.dreamjob.model.Post;
 
@@ -32,6 +32,6 @@ public class PostStore {
     }
 
     public void update(Post post) {
-        posts.replace(post.getId(),post);
+        posts.replace(post.getId(), post);
     }
 }
