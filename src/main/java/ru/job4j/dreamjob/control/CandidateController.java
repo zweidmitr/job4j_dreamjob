@@ -30,12 +30,6 @@ public class CandidateController {
         model.addAttribute("candidate", service.findById(id));
         return "updateCandidate";
     }
-//
-//    @PostMapping("/saveCandidate")
-//    public String saveCandidate(@ModelAttribute Candidate candidate) {
-//        service.create(candidate);
-//        return "redirect:/candidates";
-//    }
 
     @PostMapping("/createCandidate")
     public String createCandidate(@ModelAttribute Candidate candidate) {
