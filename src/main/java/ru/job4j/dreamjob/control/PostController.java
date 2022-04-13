@@ -13,7 +13,6 @@ import ru.job4j.dreamjob.services.PostService;
 @Controller
 public class PostController {
 
-    private final PostStore store = PostStore.instOf();
     private final PostService service = PostService.instOf();
 
     @GetMapping("/posts")
