@@ -7,10 +7,36 @@ public class Post implements Serializable {
     private int id;
     private String name;
     private boolean visible;
+    private City city;
+
+    private Post() {
+
+    }
 
     public Post(int id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public Post(int id, String name,City city) {
+        this.id = id;
+        this.name = name;
+        this.city = city;
+    }
+
+    public Post(int id, String name,boolean visible,City city) {
+        this.id = id;
+        this.name = name;
+        this.city = city;
+        this.visible = visible;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
     }
 
     public int getId() {

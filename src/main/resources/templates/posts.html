@@ -43,6 +43,7 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Вакансии</th>
+                <th scope="col">Город</th>
             </tr>
             </thead>
             <tbody>
@@ -60,6 +61,7 @@
                         </span>
                     </span>
                 </td>
+                <td th:text="${post.city.name}" />
             </tr>
             </tbody>
         </table>
