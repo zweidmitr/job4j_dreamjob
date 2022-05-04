@@ -15,10 +15,9 @@ public class CandidateStore {
     private final Map<Integer, Candidate> candidates = new ConcurrentHashMap<>();
     private final AtomicInteger id = new AtomicInteger(1);
 
-
-   private CandidateStore() {
-       candidates.put(0,new Candidate(0, "Дмитрий"," ищет больше времени в сутках"));
-   }
+    private CandidateStore() {
+        candidates.put(0, new Candidate(0, "Дмитрий", " ищет больше времени в сутках"));
+    }
 
     public Collection<Candidate> findAll() {
         return candidates.values();

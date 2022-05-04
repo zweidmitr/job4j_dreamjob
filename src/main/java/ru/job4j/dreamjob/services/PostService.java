@@ -11,6 +11,7 @@ import java.util.Collection;
 @Service
 public class PostService {
     private final PostStore store;
+
     public PostService(PostStore store) {
         this.store = store;
     }

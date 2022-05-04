@@ -18,13 +18,13 @@ public class Post implements Serializable {
         this.name = name;
     }
 
-    public Post(int id, String name,City city) {
+    public Post(int id, String name, City city) {
         this.id = id;
         this.name = name;
         this.city = city;
     }
 
-    public Post(int id, String name,boolean visible,City city) {
+    public Post(int id, String name, boolean visible, City city) {
         this.id = id;
         this.name = name;
         this.city = city;
@@ -65,8 +65,12 @@ public class Post implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Post post = (Post) o;
         return id == post.id;
     }
