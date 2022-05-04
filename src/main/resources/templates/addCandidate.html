@@ -23,7 +23,7 @@
 <body>
 <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Dream Job, <small th:text="${user}"></small></a>
+        <a class="navbar-brand" href="#">Dream Job</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
                 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -45,7 +45,7 @@
                 Новый кандидат.
             </div>
             <div class="card-body">
-                <form th:action="@{/createCandidate}" method="POST">
+                <form th:action="@{/createCandidate}" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="id" value="0"/>
                     <div class="form-group">
                         <label for="name">Имя
@@ -55,7 +55,11 @@
                             <input type="text" class="form-control" name="description" id="description">
                         </label>
                     </div>
-                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                    <div class="form-group">
+                        <label for="name">Фотография</label>
+                        <input type="file" class="form-control" name="file" id="file">
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3">Сохранить</button>
                 </form>
             </div>
         </div>

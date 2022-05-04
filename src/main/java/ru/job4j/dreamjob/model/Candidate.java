@@ -8,6 +8,7 @@ public class Candidate {
     private int id;
     private String name;
     private String description;
+    private byte[] photo;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
     private final String created = LocalDateTime.now().format(formatter);
 
@@ -15,6 +16,14 @@ public class Candidate {
         this.id = id;
         this.name = name;
         this.description = description;
+    }
+
+    public byte[] getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
     }
 
     public int getId() {
