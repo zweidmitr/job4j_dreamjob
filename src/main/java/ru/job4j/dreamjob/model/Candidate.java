@@ -1,7 +1,7 @@
 package ru.job4j.dreamjob.model;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class Candidate {
@@ -9,13 +9,24 @@ public class Candidate {
     private String name;
     private String description;
     private byte[] photo;
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-    private final String created = LocalDateTime.now().format(formatter);
+    private LocalDateTime created = LocalDateTime.now();
 
     public Candidate(int id, String name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;
+    }
+
+    public Candidate(int id, String name, String description, byte[] photo, LocalDateTime created) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.photo = photo;
+        this.created = created;
+    }
+
+    public Candidate() {
+
     }
 
     public byte[] getPhoto() {
@@ -50,8 +61,12 @@ public class Candidate {
         this.description = description;
     }
 
-    public String getCreated() {
+    public LocalDateTime getCreated() {
         return created;
+    }
+
+    public void setCreated(LocalDateTime created) {
+        this.created = created;
     }
 
     @Override
@@ -63,11 +78,13 @@ public class Candidate {
             return false;
         }
         Candidate candidate = (Candidate) o;
-        return id == candidate.id && Objects.equals(name, candidate.name) && Objects.equals(description, candidate.description) && Objects.equals(formatter, candidate.formatter) && Objects.equals(created, candidate.created);
+        return id == candidate.id && Objects.equals(name, candidate.name) && Objects.equals(description, candidate.description) && Arrays.equals(photo, candidate.photo) && Objects.equals(created, candidate.created);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, formatter, created);
+        int result = Objects.hash(id, name, description, created);
+        result = 31 * result + Arrays.hashCode(photo);
+        return result;
     }
 }
