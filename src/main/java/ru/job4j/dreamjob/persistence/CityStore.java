@@ -14,7 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class CityStore {
     private final Map<Integer, City> cities = new ConcurrentHashMap<>();
 
-    private CityStore() {
+    public CityStore() {
         cities.put(1, new City(1, "Мск"));
         cities.put(2, new City(2, "СПб"));
         cities.put(3, new City(3, "Екб"));
