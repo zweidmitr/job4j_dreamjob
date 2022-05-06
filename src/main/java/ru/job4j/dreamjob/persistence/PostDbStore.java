@@ -16,25 +16,6 @@ public class PostDbStore {
     private final BasicDataSource pool;
     private final CityService cityService;
 
-    private final String findAll = """
-            SELECT * FROM post
-             """;
-    private final String add = """
-            INSERT INTO post(name, city_id)
-            VALUES (?,?)
-            """;
-    private final String findById = """
-            SELECT *
-            FROM post
-            WHERE id = ?
-            """;
-    private final String update = """
-            UPDATE post
-            SET name = ?,
-            city_id = ?
-            WHERE id = ?
-            """;
-
     public PostDbStore(BasicDataSource pool, CityService cityService) {
         this.pool = pool;
         this.cityService = cityService;
@@ -43,7 +24,7 @@ public class PostDbStore {
     public List<Post> findAll() {
         List<Post> posts = new ArrayList<>();
         try (var cn = pool.getConnection();
-             var ps = cn.prepareStatement(findAll)) {
+             var ps = cn.prepareStatement("SELECT * FROM post")) {
             try (var it = ps.executeQuery()) {
                 while (it.next()) {
                     posts.add(createPost(it));
@@ -57,7 +38,7 @@ public class PostDbStore {
 
     public Post add(Post post) {
         try (var cn = pool.getConnection();
-             var ps = cn.prepareStatement(add,
+             var ps = cn.prepareStatement("INSERT INTO post(name, city_id) VALUES (?,?)",
                      PreparedStatement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, post.getName());
             ps.setInt(2, post.getCity().getId());
@@ -76,7 +57,7 @@ public class PostDbStore {
     public boolean update(Post post) {
         boolean result = false;
         try (var cn = pool.getConnection();
-             var ps = cn.prepareStatement(update)) {
+             var ps = cn.prepareStatement("UPDATE post SET name = ?, city_id = ? WHERE id = ?")) {
             ps.setString(1, post.getName());
             ps.setInt(2, post.getCity().getId());
             ps.setInt(3, post.getId());
@@ -90,7 +71,7 @@ public class PostDbStore {
 
     public Post findById(int id) {
         try (var cn = pool.getConnection();
-             var ps = cn.prepareStatement(findById)) {
+             var ps = cn.prepareStatement("SELECT * FROM post WHERE id = ?")) {
             ps.setInt(1, id);
             try (var it = ps.executeQuery()) {
                 if (it.next()) {
