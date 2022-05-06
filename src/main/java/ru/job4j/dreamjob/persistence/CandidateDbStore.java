@@ -11,24 +11,6 @@ import java.util.List;
 @Repository
 public class CandidateDbStore {
     private final BasicDataSource pool;
-    private final String findAll = """
-            SELECT * FROM candidate
-            """;
-    private final String add = """
-            INSERT INTO candidate(name, description, created,photo)
-            VALUES (?,?,?,?)
-            """;
-    private final String findById = """
-                SELECT * FROM candidate
-                WHERE id = ?
-            """;
-    private final String update = """
-            UPDATE candidate
-            SET name = ?,
-            description = ?,
-            photo = ?
-            WHERE id= ?
-            """;
 
     public CandidateDbStore(BasicDataSource pool) {
         this.pool = pool;
@@ -37,7 +19,7 @@ public class CandidateDbStore {
     public List<Candidate> findAll() {
         List<Candidate> candidates = new ArrayList<>();
         try (var cn = pool.getConnection();
-             var ps = cn.prepareStatement(findAll)) {
+             var ps = cn.prepareStatement("SELECT * FROM candidate")) {
             try (var it = ps.executeQuery()) {
                 while (it.next()) {
                     candidates.add(createCandidate(it));
@@ -51,7 +33,8 @@ public class CandidateDbStore {
 
     public Candidate add(Candidate candidate) {
         try (var cn = pool.getConnection();
-             var ps = cn.prepareStatement(add,
+             var ps = cn.prepareStatement(
+                     "INSERT INTO candidate(name, description, created,photo) VALUES (?,?,?,?)",
                      PreparedStatement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, candidate.getName());
             ps.setString(2, candidate.getDescription());
@@ -72,7 +55,7 @@ public class CandidateDbStore {
 
     public Candidate findById(int id) {
         try (var cn = pool.getConnection();
-             var ps = cn.prepareStatement(findById)) {
+             var ps = cn.prepareStatement("SELECT * FROM candidate WHERE id = ?")) {
             ps.setInt(1, id);
             try (var it = ps.executeQuery()) {
                 if (it.next()) {
@@ -88,7 +71,8 @@ public class CandidateDbStore {
     public boolean update(Candidate candidate) {
         boolean result = false;
         try (var cn = pool.getConnection();
-             var ps = cn.prepareStatement(update)) {
+             var ps = cn.prepareStatement(
+                     "UPDATE candidate SET name = ?, description = ?, photo = ? WHERE id= ?")) {
             ps.setString(1, candidate.getName());
             ps.setString(2, candidate.getDescription());
             ps.setBytes(3, candidate.getPhoto());
