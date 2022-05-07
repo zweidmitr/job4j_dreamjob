@@ -11,7 +11,6 @@ import static org.hamcrest.Matchers.is;
 
 public class PostDbStoreTest {
     @Test
-    @Ignore
     public void whenCreatePost() {
         var cityService = new CityService(new CityStore());
         PostDbStore store = new PostDbStore(new Main().loadPool(), cityService);
