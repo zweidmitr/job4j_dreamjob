@@ -34,12 +34,6 @@ public class PostController {
         return "addPost";
     }
 
-    @GetMapping("/formAddPost")
-    public String formAddPost(Model model) {
-        model.addAttribute("cities", cityService.getAllCities());
-        return "addPost";
-    }
-
     @GetMapping("/formUpdatePost/{postId}")
     public String formUpdatePost(Model model, @PathVariable("postId") int id) {
         model.addAttribute("cities", cityService.getAllCities());
