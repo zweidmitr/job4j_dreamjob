@@ -16,8 +16,8 @@ public class CandidateDbStoreTest {
     public void whenFindALlCandidate() {
         BasicDataSource pool = new Main().loadPool();
         CandidateDbStore store = new CandidateDbStore(pool);
-        Candidate oneCandidate = new Candidate(1, "one","1");
-        Candidate twoCandidate = new Candidate(2, "two","1" );
+        Candidate oneCandidate = new Candidate(1, "one", "1");
+        Candidate twoCandidate = new Candidate(2, "two", "1");
         Candidate threeCandidate = new Candidate(3, "three", "1");
 
         store.clearTable();
@@ -28,8 +28,7 @@ public class CandidateDbStoreTest {
 
         List<Candidate> result = List.of(oneCandidate, twoCandidate, threeCandidate);
         List<Candidate> candidates = store.findAll();
-        System.out.println(result.get(0));
-        System.out.println(candidates.get(0));
+
         assertThat(result, is(candidates));
     }
 
