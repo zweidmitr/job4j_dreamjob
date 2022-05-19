@@ -5,6 +5,7 @@ import org.junit.Test;
 import ru.job4j.dreamjob.Main;
 import ru.job4j.dreamjob.model.Post;
 import ru.job4j.dreamjob.services.CityService;
+
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
