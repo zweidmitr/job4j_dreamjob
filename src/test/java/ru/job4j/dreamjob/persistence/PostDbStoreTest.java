@@ -1,12 +1,10 @@
 package ru.job4j.dreamjob.persistence;
 
 import org.apache.commons.dbcp2.BasicDataSource;
-import org.junit.Ignore;
 import org.junit.Test;
 import ru.job4j.dreamjob.Main;
 import ru.job4j.dreamjob.model.Post;
 import ru.job4j.dreamjob.services.CityService;
-
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -27,13 +25,14 @@ public class PostDbStoreTest {
         twoPost.setCity(cityService.findById(2));
         threePost.setCity(cityService.findById(3));
 
+        store.clearTable();
+
         store.add(onePost);
         store.add(twoPost);
         store.add(threePost);
 
         List<Post> results = List.of(onePost, twoPost, threePost);
         assertThat(results, is(store.findAll()));
-
     }
 
     @Test
@@ -54,6 +53,7 @@ public class PostDbStoreTest {
         BasicDataSource pool = new Main().loadPool();
         PostDbStore store = new PostDbStore(pool, cityService);
         Post post = new Post(0, "name");
+        post.setCity(cityService.findById(1));
 
         store.add(post);
         post.setName("new post name");

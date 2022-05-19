@@ -91,4 +91,15 @@ public class PostDbStore {
                 cityService.findById(it.getInt("city_id"))
         );
     }
+
+    public void clearTable() {
+        try (var cn = pool.getConnection()) {
+            var ps = cn.prepareStatement(
+                    "delete from post"
+            );
+            ps.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

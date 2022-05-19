@@ -16,12 +16,21 @@ public class CandidateDbStoreTest {
     public void whenFindALlCandidate() {
         BasicDataSource pool = new Main().loadPool();
         CandidateDbStore store = new CandidateDbStore(pool);
-        Candidate oneCandidate = new Candidate(1, "one", "descOne");
-        Candidate twoCandidate = new Candidate(2, "two", "descTwo");
-        Candidate threeCandidate = new Candidate(3, "three", "descThree");
+        Candidate oneCandidate = new Candidate(1, "one","1");
+        Candidate twoCandidate = new Candidate(2, "two","1" );
+        Candidate threeCandidate = new Candidate(3, "three", "1");
+
+        store.clearTable();
+
+        store.add(oneCandidate);
+        store.add(twoCandidate);
+        store.add(threeCandidate);
 
         List<Candidate> result = List.of(oneCandidate, twoCandidate, threeCandidate);
-        assertThat(result, is(store.findAll()));
+        List<Candidate> candidates = store.findAll();
+        System.out.println(result.get(0));
+        System.out.println(candidates.get(0));
+        assertThat(result, is(candidates));
     }
 
     @Test
@@ -47,5 +56,4 @@ public class CandidateDbStoreTest {
         Candidate candidateDb = store.findById(candidate.getId());
         assertThat("new candidate name", is(candidateDb.getName()));
     }
-
 }
