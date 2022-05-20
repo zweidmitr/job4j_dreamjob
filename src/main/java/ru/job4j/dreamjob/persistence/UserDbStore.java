@@ -58,11 +58,39 @@ public class UserDbStore {
         return optUser;
     }
 
+    public Optional<User> findUserByEmailAndPwd(String email, String password) {
+        Optional<User> optUser = Optional.empty();
+        try (var cn = pool.getConnection();
+             var ps = cn.prepareStatement(
+                     "SELECT * FROM users WHERE email = ? and password = ?")) {
+            ps.setString(1, email);
+            ps.setString(2, password);
+            try (var it = ps.executeQuery()) {
+                while (it.next()) {
+                    optUser = Optional.of(createUser(it));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return optUser;
+    }
+
     private User createUser(ResultSet it) throws SQLException {
         return new User(
                 it.getInt("id"),
                 it.getString("email"),
                 it.getString("password")
         );
+    }
+
+    public void clearTable() {
+        try (var cn = pool.getConnection();
+             var ps = cn.prepareStatement("DELETE FROM users")) {
+            ps.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }
