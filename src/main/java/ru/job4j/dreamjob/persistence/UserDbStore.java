@@ -40,11 +40,12 @@ public class UserDbStore {
         Optional<User> optUser = Optional.empty();
         try (var cn = pool.getConnection();
              var ps = cn.prepareStatement(
-                     "INSERT INTO users(email, password) VALUES (?,?)",
+                     "INSERT INTO users(name, email, password) VALUES (?,?,?)",
                      PreparedStatement.RETURN_GENERATED_KEYS
              )) {
-            ps.setString(1, user.getEmail());
-            ps.setString(2, user.getPassword());
+            ps.setString(1, user.getName());
+            ps.setString(2, user.getEmail());
+            ps.setString(3, user.getPassword());
             ps.execute();
             try (var id = ps.getGeneratedKeys()) {
                 if (id.next()) {
@@ -79,6 +80,7 @@ public class UserDbStore {
     private User createUser(ResultSet it) throws SQLException {
         return new User(
                 it.getInt("id"),
+                it.getString("name"),
                 it.getString("email"),
                 it.getString("password")
         );
