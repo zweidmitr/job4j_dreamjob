@@ -67,7 +67,7 @@ public class UserDbStore {
             ps.setString(1, email);
             ps.setString(2, password);
             try (var it = ps.executeQuery()) {
-                while (it.next()) {
+                if (it.next()) {
                     optUser = Optional.of(createUser(it));
                 }
             }
